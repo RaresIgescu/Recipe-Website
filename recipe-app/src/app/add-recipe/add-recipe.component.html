@@ -1,0 +1,13 @@
+<label for="">NgModel Input</label>
+<input type="text" [(ngModel)]="binding"/>
+{{binding}}
+
+<form [formGroup]="addRecipeForm" (ngSubmit)="onSubmit()">
+    <label for=""> Name </label>
+    <input type="text" formControlName="name" /> 
+
+    <label for="" formControlName="prepTime"> PrepTime </label>
+    <input type="number" /> 
+
+    <button type="submit"> Submit </button>
+</form>

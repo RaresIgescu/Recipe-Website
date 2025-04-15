@@ -1,0 +1,19 @@
+.card-container {
+    background-color: brown;
+    
+    width: 390px;
+    height: 450px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+        width: 180px;
+        height: 180px;
+    }
+
+}
+
+// .card-container > img putem aplica stiluri doar pe imaginea anume dintr-un div

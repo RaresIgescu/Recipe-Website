@@ -1,1 +1,14 @@
-<div>{{ recipe.name }}</div>
+<div class = "card-container">
+    <div>{{ recipe.name | uppercase }} </div>
+    <!-- cas sa facem apel la ceva din Js punem paranteze patrate--> 
+    <img [src] = "recipe.image" alt="recipe=image" /> 
+    <div>
+        <b>
+            Preparation Time:
+        </b>
+        {{recipe.prepTimeMinutes}}
+    </div>
+    <button (click)="goToRecipePage()">
+        Tell me more
+    </button>
+</div>
