@@ -2,7 +2,7 @@ export interface Recipe {
 	id: string;
 	name: string;
 	image: string;
-	tags: string[];
+	tags?: string[];
 	prepTimeMinutes: number;
 	difficulty?: string;
 }

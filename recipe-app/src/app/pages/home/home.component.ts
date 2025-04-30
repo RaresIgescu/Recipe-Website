@@ -13,10 +13,10 @@ import { db } from '../../db/db';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  recipes: Recipe[] = [];
+  recipes: any[];
   dummyRecipes!: Recipe[];
   errorMessage: any = ' ';
-  searchValue: any = '';
+  searchValue: any = ' ';
   filteredRecipes!: any[]; //semnul exclamarii il folosim pentru a putea folosi vectorul fara valoare declarata implicit
   dbRecipes!: any[];
 
@@ -37,15 +37,28 @@ export class HomeComponent {
     }
 
     db.subscribeQuery({ recipes: {} }, (resp) => {
-      if (resp.error) {
-        this.errorMessage = resp.error; 
-      }
-      if (resp.data) {
-        this.dbRecipes = resp.data.recipes;
-        this.filteredRecipes = resp.data.recipes;
-      }
-    });
+          if (resp.error) {
+            this.errorMessage = resp.error; 
+          }
+          if (resp.data) {
+            this.dbRecipes = resp.data.recipes;
+            this.filteredRecipes = resp.data.recipes;
+          }
+        });
+
   }
+  //   setInterval(() => {
+  //   db.subscribeQuery({ recipes: {} }, (resp) => {
+  //     if (resp.error) {
+  //       this.errorMessage = resp.error; 
+  //     }
+  //     if (resp.data) {
+  //       this.dbRecipes = resp.data.recipes;
+  //       this.filteredRecipes = resp.data.recipes;
+  //     }
+  //   });
+  // }, 5000);
+  // }
 
   filterValues() {
     this.filteredRecipes = this.dbRecipes.filter((recipe) => 
