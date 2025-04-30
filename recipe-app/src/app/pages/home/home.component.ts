@@ -16,8 +16,8 @@ export class HomeComponent {
   recipes: Recipe[] = [];
   dummyRecipes!: Recipe[];
   errorMessage: any = ' ';
-  searchValue: any = ' ';
-  filteredRecipes!: Recipe[]; //semnul exclamarii il folosim pentru a putea folosi vectorul fara valoare declarata implicit
+  searchValue: any = '';
+  filteredRecipes!: any[]; //semnul exclamarii il folosim pentru a putea folosi vectorul fara valoare declarata implicit
   dbRecipes!: any[];
 
   constructor(recipesService: RecipesService, readonly router: Router) {
@@ -27,7 +27,6 @@ export class HomeComponent {
         next: (response) => {
           console.log(response);
           this.dummyRecipes = response.recipes;
-          this.filteredRecipes = response.recipes;
         },
         error: (err) => {
           this.errorMessage = err.message;
@@ -43,12 +42,13 @@ export class HomeComponent {
       }
       if (resp.data) {
         this.dbRecipes = resp.data.recipes;
+        this.filteredRecipes = resp.data.recipes;
       }
     });
   }
 
   filterValues() {
-    this.filteredRecipes = this.dummyRecipes.filter((recipe) => 
+    this.filteredRecipes = this.dbRecipes.filter((recipe) => 
       recipe.name.toUpperCase().includes(this.searchValue.toUpperCase())
     );
   }

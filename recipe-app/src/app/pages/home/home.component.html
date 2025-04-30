@@ -8,7 +8,7 @@
     placeholder="Search Recipe" 
     [(ngModel)]="searchValue" 
     (ngModelChange)="filterValues()"/>
-    <button class="add-buttton" (clic)="redirectToAddRecipe()">
+    <button class="add-buttton" (click)="redirectToAddRecipe()">
         Add Recipe
     </button>
 </div>
@@ -19,7 +19,7 @@
     <app-recipe-card [recipe]="recipes[1]"></app-recipe-card>
     <app-recipe-card [recipe]="recipes[2]"></app-recipe-card> -->
 
-    @for (recipe of dbRecipes; track $index) {
+    @for (recipe of filteredRecipes; track $index) {
         <app-recipe-card [recipe]="recipe"></app-recipe-card>
     } @empty {
         <div>
