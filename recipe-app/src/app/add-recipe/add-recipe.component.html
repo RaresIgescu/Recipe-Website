@@ -1,13 +1,25 @@
-<label for="">NgModel Input</label>
+<!-- <label for="">NgModel Input</label>
 <input type="text" [(ngModel)]="binding"/>
-{{binding}}
+{{binding}} -->
 
-<form [formGroup]="addRecipeForm" (ngSubmit)="onSubmit()">
+<form 
+    [formGroup]="addRecipeForm" 
+    (ngSubmit)="onSubmit()"
+    class="form-container">
+
     <label for=""> Name </label>
     <input type="text" formControlName="name" /> 
 
+    <label for="">Image URL</label>
+    <input type="text" formControlName="image" />
+
+    <label for="">Difficulty</label>
+    <input type="text" formControlName="difficulty" />
+
     <label> PrepTime </label>
-    <input formControlName="prepTime" type="number" /> 
+    <input  type="number" formControlName="prepTimeMinutes" /> 
+    
 
     <button type="submit"> Submit </button>
 </form>
+{{localStorageValue}}

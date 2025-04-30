@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../interfaces/recipe.interface';
 import { HttpClient } from '@angular/common/http';
+import { db } from '../db/db';
+import { id } from '@instantdb/core';
 
 @Injectable({
   providedIn: 'root',
@@ -40,5 +42,17 @@ export class RecipesService {
 
   getRecipe(id: number) {
     return this.http.get(`${this.API_URL}/${id}`);
+  }
+
+  addDbRecipes(recipeInput: Omit<Recipe, 'id'>) {
+    db.transact(
+      db.tx.recipes[id()].update({
+        name: recipeInput.name,
+        image: recipeInput.image,
+        difficulty: recipeInput.difficulty,
+        prepTimeMinutes: recipeInput.prepTimeMinutes,
+      })
+    );
+    console.log("Succes, the recipe has been inserted");
   }
 }
