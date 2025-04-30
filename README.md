@@ -1,1 +1,1 @@
-# lenovo-angular-app
+# Recipe catalogue App
