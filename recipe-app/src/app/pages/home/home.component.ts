@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
 import { Recipe } from '../../interfaces/recipe.interface';
 import { RecipesService } from '../../services/recipes.service';
@@ -12,15 +12,15 @@ import { db } from '../../db/db';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   recipes: any[];
   dummyRecipes!: Recipe[];
   errorMessage: any = ' ';
-  searchValue: any = ' ';
+  searchValue: any = '';
   filteredRecipes!: any[]; //semnul exclamarii il folosim pentru a putea folosi vectorul fara valoare declarata implicit
   dbRecipes!: any[];
 
-  constructor(recipesService: RecipesService, readonly router: Router) {
+  constructor(private recipesService: RecipesService, readonly router: Router) {
     this.recipes = recipesService.recipes;
     try {
       recipesService.getAllRecipes().subscribe({
@@ -37,17 +37,17 @@ export class HomeComponent {
     }
 
     db.subscribeQuery({ recipes: {} }, (resp) => {
-          if (resp.error) {
-            this.errorMessage = resp.error; 
-          }
-          if (resp.data) {
-            this.dbRecipes = resp.data.recipes;
-            this.filteredRecipes = resp.data.recipes;
-          }
-        });
-
+      if (resp.error) {
+        this.errorMessage = resp.error; 
+      }
+      if (resp.data) {
+        this.dbRecipes = resp.data.recipes;
+        this.filteredRecipes = resp.data.recipes;
+      }
+    });
   }
-  //   setInterval(() => {
+  
+  // setInterval(() => {
   //   db.subscribeQuery({ recipes: {} }, (resp) => {
   //     if (resp.error) {
   //       this.errorMessage = resp.error; 
@@ -58,7 +58,14 @@ export class HomeComponent {
   //     }
   //   });
   // }, 5000);
-  // }
+  
+
+  ngOnInit() {
+    this.loadRecipes();
+    this.recipesService.subscribeToSyncEvents(() => {
+      this.loadRecipes(); 
+    });
+  }
 
   filterValues() {
     this.filteredRecipes = this.dbRecipes.filter((recipe) => 
@@ -68,5 +75,17 @@ export class HomeComponent {
 
   redirectToAddRecipe() {
     this.router.navigateByUrl('/add-recipe');
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('storage', this.loadRecipes);
+  }
+
+  loadRecipes() {
+    db.subscribeQuery({ recipes: {} }, (resp) => {
+      if (resp.data) {
+        this.recipes = resp.data.recipes;
+      }
+    });
   }
 }

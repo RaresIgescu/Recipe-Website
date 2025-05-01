@@ -3,7 +3,8 @@ import { Recipe } from '../interfaces/recipe.interface';
 import { HttpClient } from '@angular/common/http';
 import { db } from '../db/db';
 import { id } from '@instantdb/core';
-import { Observable } from 'rxjs';
+import { Call } from '@angular/compiler';
+import { bindCallback } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class RecipesService {
   
   recipes!: any[];
   readonly API_URL = 'https://dummyjson.com/recipes';
+  readonly SYNC_KEY = 'recipe_sync';
 
   constructor(readonly http: HttpClient) {
   }
@@ -20,18 +22,7 @@ export class RecipesService {
     return this.http.get<{recipes: Recipe[]}>(this.API_URL);
   }
 
-  getDBRecipes(): Observable<Recipe[]> {
-    return new Observable((subscriber) => {
-      db.subscribeQuery({ recipes: {} }, (resp) => {
-        if (resp.error) {
-          subscriber.error(resp.error);
-        }
-        if (resp.data) {
-          subscriber.next(resp.data.recipes); 
-        }
-      });
-    });
-  }
+  
   getRecipe(id: number) {
     return this.http.get(`${this.API_URL}/${id}`);
   }
@@ -45,7 +36,15 @@ export class RecipesService {
         prepTimeMinutes: recipeInput.prepTimeMinutes,
       })
     ).then(() => {
-      this.getDBRecipes();
+      localStorage.setItem(this.SYNC_KEY, Date.now().toString());
+    });
+  }
+
+  subscribeToSyncEvents(callback: () => void): void {
+    window.addEventListener('storage', (event) => {
+      if (event.key === this.SYNC_KEY && event.newValue) {
+        callback(); 
+      }
     });
   }
 }
