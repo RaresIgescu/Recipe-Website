@@ -37,23 +37,6 @@ export class AddRecipeComponent {
   });
 
   onSubmit() {
-    // if(this.addRecipeForm.valid) {
-    //   console.log(this.addRecipeForm.value);
-    // } else {
-    //   console.error("Form is not valid");
-    // }
-    // const jsonObject = {
-    //   a: 12,
-    //   heoght: 50,
-    //   test: {
-    //     a: "another object"
-    //   },
-    //   array: ["1", 2, 3],
-    // };
-
-    // localStorage.setItem('theme', JSON.stringify(jsonObject));
-    // sessionStorage.setItem('theme', 'light');
-    // this.localStorageValue = localStorage.getItem('theme');
     if(this.addRecipeForm.valid) {
       this.recipeService.addDbRecipes(this.addRecipeForm.value as Omit<Recipe, 'id'>
       );

@@ -35,16 +35,16 @@ export class RecipesService {
         difficulty: recipeInput.difficulty,
         prepTimeMinutes: recipeInput.prepTimeMinutes,
       })
-    ).then(() => {
-      localStorage.setItem(this.SYNC_KEY, Date.now().toString());
-    });
+    )//.then(() => {
+    //   localStorage.setItem(this.SYNC_KEY, Date.now().toString());
+    // });
   }
 
-  subscribeToSyncEvents(callback: () => void): void {
-    window.addEventListener('storage', (event) => {
-      if (event.key === this.SYNC_KEY && event.newValue) {
-        callback(); 
-      }
-    });
-  }
+  // subscribeToSyncEvents(callback: () => void): void {
+  //   window.addEventListener('storage', (event) => {
+  //     if (event.key === this.SYNC_KEY && event.newValue) {
+  //       callback(); 
+  //     }
+  //   });
+  // }
 }

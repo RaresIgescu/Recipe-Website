@@ -5,6 +5,7 @@ import { RecipesService } from '../../services/recipes.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { db } from '../../db/db';
+import { Observable, interval, Subscription, switchMap, startWith, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit{
   searchValue: any = '';
   filteredRecipes!: any[]; //semnul exclamarii il folosim pentru a putea folosi vectorul fara valoare declarata implicit
   dbRecipes!: any[];
+  refreshSubscription!: Subscription;
 
   constructor(private recipesService: RecipesService, readonly router: Router) {
     this.recipes = recipesService.recipes;
@@ -47,24 +49,41 @@ export class HomeComponent implements OnInit{
     });
   }
   
-  // setInterval(() => {
-  //   db.subscribeQuery({ recipes: {} }, (resp) => {
-  //     if (resp.error) {
-  //       this.errorMessage = resp.error; 
-  //     }
-  //     if (resp.data) {
-  //       this.dbRecipes = resp.data.recipes;
-  //       this.filteredRecipes = resp.data.recipes;
-  //     }
-  //   });
-  // }, 5000);
+  // ngOnInit() {
+  //   setInterval(() => {
+  //     db.subscribeQuery({ recipes: {} }, (resp) => {
+  //       if (resp.error) {
+  //         this.errorMessage = resp.error; 
+  //       }
+  //       if (resp.data) {
+  //         this.dbRecipes = resp.data.recipes;
+  //         this.filteredRecipes = resp.data.recipes;
+  //       }
+  //     });
+  //   }, 5000);
+  // }
   
 
+  // ngOnInit() {
+  //   this.loadRecipes();
+  //   this.recipesService.subscribeToSyncEvents(() => {
+  //     this.loadRecipes(); 
+  //   });
+  // }
+
   ngOnInit() {
-    this.loadRecipes();
-    this.recipesService.subscribeToSyncEvents(() => {
-      this.loadRecipes(); 
-    });
+    this.refreshSubscription = interval(5000).pipe(
+      startWith(0), 
+      switchMap(() => this.fetchRecipesFromDB())
+    ).subscribe();
+  }
+
+  // ngOnDestroy() {
+  //   window.removeEventListener('storage', this.loadRecipes);
+  // }
+
+  ngOnDestroy() {
+    this.refreshSubscription?.unsubscribe();
   }
 
   filterValues() {
@@ -77,15 +96,33 @@ export class HomeComponent implements OnInit{
     this.router.navigateByUrl('/add-recipe');
   }
 
-  ngOnDestroy() {
-    window.removeEventListener('storage', this.loadRecipes);
-  }
-
   loadRecipes() {
     db.subscribeQuery({ recipes: {} }, (resp) => {
       if (resp.data) {
-        this.recipes = resp.data.recipes;
+        this.filteredRecipes = resp.data.recipes;
       }
     });
+  }
+
+  fetchRecipesFromDB(): Observable<any> {
+    return new Observable(observer => {
+      db.subscribeQuery({ recipes: {} }, (resp) => {
+        if (resp.error) {
+          this.errorMessage = resp.error;
+          observer.error(resp.error);
+        }
+        if (resp.data) {
+          this.dbRecipes = resp.data.recipes;
+          this.filteredRecipes = resp.data.recipes;
+          observer.next(resp.data);
+        }
+        observer.complete(); 
+      });
+    }).pipe(
+      catchError(error => {
+        console.error('Eroare la actualizare:', error);
+        return of(null);
+      })
+    );
   }
 }
