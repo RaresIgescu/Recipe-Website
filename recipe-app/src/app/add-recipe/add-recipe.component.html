@@ -14,17 +14,17 @@
       <form 
       [formGroup]="addRecipeForm" 
       (ngSubmit)="onSubmit()">
-      <div class="form-outline mb-4">
-        <label class="form-label"> Name </label> 
-        <input class="form-control" type="text" formControlName="name" />
-        <div *ngIf="addRecipeForm.get('name')?.invalid && addRecipeForm.get('name')?.touched" class="text-danger">
-          Name is required, at least 3 characters
-        </div>
+
+      <div class="form-outline mt-4 mb-4">
+        <p-iftalabel>
+          <input pInputText id="username" formControlName="name" autocomplete="off" />
+          <label for="username">Username</label>
+        </p-iftalabel>
       </div>
       
       <div class="form-outline mb-4">
-        <label class="form-label">Image URL</label>
-        <input class="form-control" type="text" formControlName="image" />
+          <label class="form-label">Image URL</label>
+          <input class="form-control" type="text" formControlName="image" />
       </div>
       
       <div class="form-outline mb-4">

@@ -4,10 +4,13 @@ import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../interfaces/recipe.interface';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
   selector: 'app-add-recipe',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule,  ButtonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule,  ButtonModule, FloatLabelModule, InputTextModule, IftaLabelModule],
   templateUrl: './add-recipe.component.html',
   styleUrl: './add-recipe.component.scss'
 })
