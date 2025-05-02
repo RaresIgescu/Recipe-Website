@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit{
   // }
 
   ngOnInit() {
-    this.refreshSubscription = interval(5000).pipe(
+    this.refreshSubscription = interval(1000).pipe(
       startWith(0), 
       switchMap(() => this.fetchRecipesFromDB())
     ).subscribe();
