@@ -1,37 +1,45 @@
-<!-- <label for="">NgModel Input</label>
-<input type="text" [(ngModel)]="binding"/>
-{{binding}} -->
-
-<form 
-    [formGroup]="addRecipeForm" 
-    (ngSubmit)="onSubmit()"
-    class="form-container">
-
-    <label for=""> Name </label>
-    <input type="text" formControlName="name" /> 
-
-    <label for="">Image URL</label>
-    <input type="text" formControlName="image" />
-
-    <label for="">Difficulty</label>
-    <input type="text" formControlName="difficulty" />
-
-    <label> PrepTime </label>
-    <input  type="number" formControlName="prepTimeMinutes" /> 
-    
-
-    <button type="submit"> Submit </button>
-</form>
-{{localStorageValue}}
-
-<div class="px-4 py-5 my-5 text-center">
-    <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-    <h1 class="display-5 fw-bold text-body-emphasis">Centered hero</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
-        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-4 shadow" style="width: 600px;">
+      <h1> 
+        Add a recipe 
+      </h1>
+      <form 
+      [formGroup]="addRecipeForm" 
+      (ngSubmit)="onSubmit()">
+      <div class="form-outline mb-4">
+        <label class="form-label"> Name </label> 
+        <input class="form-control" type="text" formControlName="name" />
+        <div *ngIf="addRecipeForm.get('name')?.invalid && addRecipeForm.get('name')?.touched" class="text-danger">
+          Name is required, at least 3 characters
+        </div>
       </div>
+      
+      <div class="form-outline mb-4">
+        <label class="form-label">Image URL</label>
+        <input class="form-control" type="text" formControlName="image" />
+      </div>
+      
+      <div class="form-outline mb-4">
+        <label class="form-label">Difficulty</label>
+        <input class="form-control" type="text" formControlName="difficulty" />
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label"> PrepTime </label>
+        <input class="form-control" type="number" formControlName="prepTimeMinutes" /> 
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mb-4">Add recipe</button>
+      </form>
     </div>
   </div>
+</body>
+</html>

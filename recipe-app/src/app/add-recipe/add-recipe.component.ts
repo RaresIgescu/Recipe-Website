@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../interfaces/recipe.interface';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-add-recipe',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule,  ButtonModule],
   templateUrl: './add-recipe.component.html',
   styleUrl: './add-recipe.component.scss'
 })
@@ -24,15 +26,13 @@ export class AddRecipeComponent {
     ]),
     difficulty: new FormControl('', [
       Validators.required, 
-      Validators.min(0)
     ]),
     image: new FormControl('', [
-      Validators.required, 
-      Validators.min(0)
+      Validators.required,
     ]),
     prepTimeMinutes: new FormControl(0, [
       Validators.required, 
-      Validators.min(0)
+      Validators.min(5)
     ]),
   });
 
