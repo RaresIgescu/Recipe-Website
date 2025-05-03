@@ -6,10 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { db } from '../../db/db';
 import { Observable, interval, Subscription, switchMap, startWith, catchError, of } from 'rxjs';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { IftaLabelModule } from 'primeng/iftalabel';
+
 
 @Component({
   selector: 'app-home',
-  imports: [RecipeCardComponent, FormsModule],
+  imports: [RecipeCardComponent, FormsModule, FloatLabelModule, InputTextModule, IftaLabelModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -99,7 +103,7 @@ export class HomeComponent implements OnInit{
   loadRecipes() {
     db.subscribeQuery({ recipes: {} }, (resp) => {
       if (resp.data) {
-        this.filteredRecipes = resp.data.recipes;
+        this.recipes = resp.data.recipes;
       }
     });
   }
@@ -113,7 +117,6 @@ export class HomeComponent implements OnInit{
         }
         if (resp.data) {
           this.dbRecipes = resp.data.recipes;
-          this.filteredRecipes = resp.data.recipes;
           observer.next(resp.data);
         }
         observer.complete(); 
