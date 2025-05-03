@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="card-container container">
+    <div class="card-container container d-flex align-items-center justify-content-evenly mb-5">
         @for (recipe of filteredRecipes; track $index) {
             <app-recipe-card [recipe]="recipe"></app-recipe-card>
         } @empty {

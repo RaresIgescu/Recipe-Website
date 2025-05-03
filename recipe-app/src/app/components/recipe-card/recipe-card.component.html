@@ -1,11 +1,27 @@
-<div class = "card-container" [ngStyle]="{ 
-    backgroundColor: recipe.prepTimeMinutes >= 20 ? 'red' : 'green'
-    }"  
-    [ngClass]="{'colorWhite': recipe.difficulty === 'Easy'}"
->
-    <div>{{ recipe.name | uppercase }} </div>
-    <!-- cas sa facem apel la ceva din Js punem paranteze patrate--> 
-    <img [src] = "recipe.image" alt="recipe=image" /> 
+<div class = "container d-flex flex-wrap"  [ngClass]="{'colorWhite': recipe.difficulty === 'Easy'}">
+    <p-card [style]="{ width: '20rem', overflow: 'hidden' }">
+        <ng-template #header>
+            <img [src] = "recipe.image" alt="recipe=image" style="width: 100%; height:300px; object-fit: cover;"/> 
+        </ng-template>
+        <ng-template #title> {{ recipe.name | uppercase }} </ng-template>
+        <ng-template #subtitle> 
+            Difficulty: {{recipe.difficulty}} <br />
+            Preparation Time: {{recipe.prepTimeMinutes}} 
+        </ng-template>
+        <!-- <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+        </p>  -->
+        <ng-template #footer>
+            <div class="flex gap-4 mt-1">
+                <p-button label="Tell me more" (click)="goToRecipePage()" class="w-full" styleClass="w-full" />
+            </div>
+        </ng-template>
+    </p-card>
+
+    <!-- <div>{{ recipe.name | uppercase }} </div> -->
+     <!-- cas sa facem apel la ceva din Js punem paranteze patrate -->
+    <!-- <img [src] = "recipe.image" alt="recipe=image" /> 
     <div>
         <b>
             Preparation Time:
@@ -17,5 +33,5 @@
     </div>
     <button (click)="goToRecipePage()">
         Tell me more
-    </button>
+    </button>  -->
 </div>
