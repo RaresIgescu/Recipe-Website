@@ -7,10 +7,11 @@ import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { FooterComponent } from "../components/footer/footer.component";
 
 @Component({
   selector: 'app-add-recipe',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule,  ButtonModule, FloatLabelModule, InputTextModule, IftaLabelModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, ButtonModule, FloatLabelModule, InputTextModule, IftaLabelModule, FooterComponent],
   templateUrl: './add-recipe.component.html',
   styleUrl: './add-recipe.component.scss'
 })

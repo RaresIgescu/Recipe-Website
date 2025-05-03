@@ -10,10 +10,11 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { ButtonModule } from 'primeng/button';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-home',
-  imports: [RecipeCardComponent, FormsModule, FloatLabelModule, InputTextModule, IftaLabelModule, ButtonModule],
+  imports: [RecipeCardComponent, FormsModule, FloatLabelModule, InputTextModule, IftaLabelModule, ButtonModule, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
