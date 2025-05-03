@@ -1,2 +1,12 @@
 <p>recipe-page works!</p>
 <div> Id: {{ this.router.snapshot.paramMap.get("id")}} </div>
+
+<div *ngIf="recipe; else loading">
+    <h2>{{ recipe.name }}</h2>
+    <p>Difficulty: {{ recipe.difficulty }}</p>
+    <p>Preparation Time: {{ recipe.prepTimeMinutes }} minutes</p>
+  </div>
+
+<ng-template #loading>
+   <p>Loading recipe...</p>
+</ng-template>

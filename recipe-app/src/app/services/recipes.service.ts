@@ -3,8 +3,6 @@ import { Recipe } from '../interfaces/recipe.interface';
 import { HttpClient } from '@angular/common/http';
 import { db } from '../db/db';
 import { id } from '@instantdb/core';
-import { Call } from '@angular/compiler';
-import { bindCallback } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +19,38 @@ export class RecipesService {
   getAllRecipes() {
     return this.http.get<{recipes: Recipe[]}>(this.API_URL);
   }
-
+  
+  getRecipeById(id: string): Promise<Recipe> {
+    try {
+      // Folosim o promisiune pentru a transforma callback-ul subscribeQuery
+      const recipe = new Promise<Recipe>((resolve, reject) => {
+        const unsubscribe = db.subscribeQuery(
+          {
+            recipes: {
+              where: { id }
+            }
+          },
+          (resp) => {
+            if (resp.error) {
+              reject(resp.error);
+              return;
+            }
+            
+            const recipe = resp.data?.recipes?.[0];
+            resolve(recipe);
+            
+            // Dezabonare după primul răspuns dacă vrei doar o singură încărcare
+            unsubscribe();
+          }
+        );
+      });
+      
+      return recipe;
+    } catch (error) {
+      console.error('Eroare la obținerea rețetei:', error);
+      throw error;
+    }
+  }
   
   getRecipe(id: number) {
     return this.http.get(`${this.API_URL}/${id}`);
