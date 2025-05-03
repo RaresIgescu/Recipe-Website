@@ -5,43 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
-  <div class="container mt-5 d-flex justify-content-center">
-    <div class="card p-4 shadow" style="width: 600px;">
-      <h1> 
-        Add a recipe 
-      </h1>
+<body class="bg-light" style="min-width: 100vh">
+  <div class="container mt-4 d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="card p-5 shadow-lg rounded-4" style="max-width: 600px; width: 100vh;">
+      <h2 class="text-center mb-4"> 
+        Add a New Recipe 
+      </h2>
       <form 
       [formGroup]="addRecipeForm" 
       (ngSubmit)="onSubmit()">
 
-      <div class="form-outline mt-4 mb-4">
-        <!-- <p-iftalabel>
-          <input pInputText id="username" formControlName="name" autocomplete="off" />
-          <label for="username">Username</label>
-        </p-iftalabel> -->
+      <div class="form-outline mt-3 mb-4">
         <p-floatlabel>
-          <input pInputText id="value1" formControlName="name" class="ng-dirty ng-invalid" />
-          <label for="value1">Name</label>
+          <input pInputText formControlName="name" class="w-100" />
+          <label>Name</label>
         </p-floatlabel>
       </div>
       
-      <div class="form-outline mb-4">
-          <label class="form-label">Image URL</label>
-          <input class="form-control" type="text" formControlName="image" />
+      <div class="form-outline mt-3 mb-4">
+        <p-floatlabel>
+          <input pInputText formControlName="image" class="w-100"/>
+          <label>Image URL</label>
+        </p-floatlabel>
       </div>
       
-      <div class="form-outline mb-4">
-        <label class="form-label">Difficulty</label>
-        <input class="form-control" type="text" formControlName="difficulty" />
+      <div class="form-outline mt-3 mb-4">
+        <p-floatlabel>
+          <input pInputText formControlName="difficulty" class="w-100"/>
+          <label>Difficulty</label>
+        </p-floatlabel>
       </div>
 
-      <div class="form-outline mb-4">
-        <label class="form-label"> PrepTime </label>
-        <input class="form-control" type="number" formControlName="prepTimeMinutes" /> 
+      <div class="form-outline mt-3 mb-4">
+        <p-floatlabel>
+          <input pInputText formControlName="prepTimeMinutes" type="number" class="w-100"  />
+          <label>Minutes</label>
+        </p-floatlabel>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-block mb-4">Add recipe</button>
+      <p-button type="submit" label="Submit" styleClass="p-button-rounded" />
       </form>
     </div>
   </div>
