@@ -9,11 +9,11 @@ import { Observable, interval, Subscription, switchMap, startWith, catchError, o
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
-
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home',
-  imports: [RecipeCardComponent, FormsModule, FloatLabelModule, InputTextModule, IftaLabelModule],
+  imports: [RecipeCardComponent, FormsModule, FloatLabelModule, InputTextModule, IftaLabelModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

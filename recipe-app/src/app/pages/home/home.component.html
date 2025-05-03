@@ -1,30 +1,40 @@
-<h1>Delicious Recipes</h1>
-
-<h2>Recipes</h2>
-
-<div class="search-container">
-    <input 
-    type="text" 
-    placeholder="Search Recipe" 
-    [(ngModel)]="searchValue" 
-    (ngModelChange)="filterValues()"/>
-    <button class="add-buttton" (click)="redirectToAddRecipe()">
-        Add Recipe
-    </button>
-</div>
-
-
-<div class="card-container">
-    <!-- <app-recipe-card [recipe]="recipes[0]"></app-recipe-card>
-    <app-recipe-card [recipe]="recipes[1]"></app-recipe-card>
-    <app-recipe-card [recipe]="recipes[2]"></app-recipe-card> -->
-
-    @for (recipe of filteredRecipes; track $index) {
-        <app-recipe-card [recipe]="recipe"></app-recipe-card>
-    } @empty {
-        <div>
-            No items to display
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="display-2 text-center mb-2">
+            Recipe Catalogue
+        </h2>
+        <div class="search-container container mt-4">
+            <div class="flex-grow-1">
+                <p-floatlabel>
+                  <input
+                    id="username"
+                    pInputText
+                    [(ngModel)]="searchValue"
+                    (ngModelChange)="filterValues()"
+                    class="w-100"
+                  />
+                  <label for="username">Search Recipe</label>
+                </p-floatlabel>
+            </div>
+            <p-button (click)="redirectToAddRecipe()" label="Add Recipe" class="p-2"/>
         </div>
-    }
-</div>
-{{ errorMessage }}
+    </div>
+
+    <div class="card-container container">
+        @for (recipe of filteredRecipes; track $index) {
+            <app-recipe-card [recipe]="recipe"></app-recipe-card>
+        } @empty {
+            <div>
+                No items to display
+            </div>
+        }
+    </div>
+</body>
+</html>
