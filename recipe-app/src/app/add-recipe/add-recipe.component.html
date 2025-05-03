@@ -16,10 +16,14 @@
       (ngSubmit)="onSubmit()">
 
       <div class="form-outline mt-4 mb-4">
-        <p-iftalabel>
+        <!-- <p-iftalabel>
           <input pInputText id="username" formControlName="name" autocomplete="off" />
           <label for="username">Username</label>
-        </p-iftalabel>
+        </p-iftalabel> -->
+        <p-floatlabel>
+          <input pInputText id="value1" formControlName="name" class="ng-dirty ng-invalid" />
+          <label for="value1">Name</label>
+        </p-floatlabel>
       </div>
       
       <div class="form-outline mb-4">
