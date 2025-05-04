@@ -8,6 +8,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { FooterComponent } from "../components/footer/footer.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-recipe',
@@ -18,7 +19,7 @@ import { FooterComponent } from "../components/footer/footer.component";
 export class AddRecipeComponent {
   localStorageValue: string | null = ' ';
 
-  constructor(readonly recipeService: RecipesService) {
+  constructor(readonly recipeService: RecipesService, readonly router: Router) {
 
   }
 
@@ -45,5 +46,9 @@ export class AddRecipeComponent {
       this.recipeService.addDbRecipes(this.addRecipeForm.value as Omit<Recipe, 'id'>
       );
     }
+  }
+
+  backToCatalogue() {
+    this.router.navigateByUrl('/recipes');
   }
 }
