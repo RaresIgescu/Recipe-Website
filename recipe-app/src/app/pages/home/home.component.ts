@@ -29,19 +29,6 @@ export class HomeComponent implements OnInit{
 
   constructor(private recipesService: RecipesService, readonly router: Router) {
     this.recipes = recipesService.recipes;
-    try {
-      recipesService.getAllRecipes().subscribe({
-        next: (response) => {
-          console.log(response);
-          this.dummyRecipes = response.recipes;
-        },
-        error: (err) => {
-          this.errorMessage = err.message;
-        },
-      }); 
-    } catch (error) {
-      this.errorMessage = error;
-    }
 
     db.subscribeQuery({ recipes: {} }, (resp) => {
       if (resp.error) {
