@@ -34,6 +34,7 @@ export class AddRecipeComponent {
     ]),
     image: new FormControl('', [
       Validators.required,
+      Validators.pattern(/\.(jpeg|jpg|png|gif|webp)$/i)
     ]),
     prepTimeMinutes: new FormControl(0, [
       Validators.required, 
