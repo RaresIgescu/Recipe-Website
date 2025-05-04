@@ -31,7 +31,7 @@ This project was developed during the Lenovo Workshop Series, an initiative aime
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/recipe-app.git
+git clone https://github.com/RaresIgescu/Recipe-Website
 cd recipe-app
 npm install
 npm run start
