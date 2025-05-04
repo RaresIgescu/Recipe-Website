@@ -20,38 +20,6 @@ export class RecipesService {
     return this.http.get<{recipes: Recipe[]}>(this.API_URL);
   }
   
-  getRecipeById(id: string): Promise<Recipe> {
-    try {
-      // Folosim o promisiune pentru a transforma callback-ul subscribeQuery
-      const recipe = new Promise<Recipe>((resolve, reject) => {
-        const unsubscribe = db.subscribeQuery(
-          {
-            recipes: {
-              where: { id }
-            }
-          },
-          (resp) => {
-            if (resp.error) {
-              reject(resp.error);
-              return;
-            }
-            
-            const recipe = resp.data?.recipes?.[0];
-            resolve(recipe);
-            
-            // Dezabonare după primul răspuns dacă vrei doar o singură încărcare
-            unsubscribe();
-          }
-        );
-      });
-      
-      return recipe;
-    } catch (error) {
-      console.error('Eroare la obținerea rețetei:', error);
-      throw error;
-    }
-  }
-  
   getRecipe(id: number) {
     return this.http.get(`${this.API_URL}/${id}`);
   }
