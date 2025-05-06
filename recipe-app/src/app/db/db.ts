@@ -1,7 +1,8 @@
 import { init, i, id, InstaQLEntity } from "@instantdb/core";
+import { environment } from "../../environments/environments";
 
 // ID for app: Lenovo
-const APP_ID = "0a62fbb4-351c-4656-9b28-14b40346d823";
+const APP_ID = environment.API_ID;
 
 // Optional: Declare your schema!
 const schema = i.schema({

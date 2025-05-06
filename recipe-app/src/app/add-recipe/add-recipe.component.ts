@@ -10,9 +10,14 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { FooterComponent } from "../components/footer/footer.component";
 import { Router } from '@angular/router';
 
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+
 @Component({
   selector: 'app-add-recipe',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, ButtonModule, FloatLabelModule, InputTextModule, IftaLabelModule, FooterComponent],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, ButtonModule, FloatLabelModule, InputTextModule, IftaLabelModule, FooterComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule],
   templateUrl: './add-recipe.component.html',
   styleUrl: './add-recipe.component.scss'
 })

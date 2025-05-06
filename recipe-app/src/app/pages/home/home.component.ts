@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit{
         }
         if (resp.data) {
           this.dbRecipes = resp.data.recipes;
-          observer.next(resp.data);
+          observer.next(resp.data); //trimite datele mai departe catre cine este abonat
         }
         observer.complete(); 
       });

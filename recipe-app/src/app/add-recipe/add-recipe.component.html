@@ -11,7 +11,7 @@
       <h2 class="text-center mb-4"> 
         Add a New Recipe 
       </h2>
-      <form 
+      <!-- <form 
       [formGroup]="addRecipeForm" 
       (ngSubmit)="onSubmit()">
 
@@ -43,11 +43,42 @@
         </p-floatlabel>
       </div>
 
-      <p-button type="submit" label="Submit" styleClass="p-button-rounded" />
-      <p-button label="Back to Catalogue" severity="danger" styleClass="p-button-rounded" class="mx-1" (click)="backToCatalogue()"/>
-      </form>
+      <p-button type="submit" label="Submit" styleClass="p-button-rounded" [disabled]="addRecipeForm.invalid"/>
+      <p-button label="Back to Catalogue" severity="danger" styleClass="p-button-rounded" class="mx-1" (click)="backToCatalogue()" />
+      </form> -->
+
+      <form 
+      [formGroup]="addRecipeForm" 
+      (ngSubmit)="onSubmit()"
+      class="form-container">
+      <mat-form-field appearance="fill">
+        <mat-label> Name </mat-label>
+        <input matInput type="text" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label> Image </mat-label>
+        <input matInput type="text" formControlName="image">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label> Difficulty </mat-label>
+        <input matInput type="text" formControlName="difficulty">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label> Prep Time </mat-label>
+        <input matInput type="number" formControlName="prepTimeMinutes">
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary" [disabled]="addRecipeForm.invalid">
+        Submit
+      </button>
+    </form>
+
     </div> 
   </div>
+
   <app-footer> </app-footer>
 </body>
 </html>
